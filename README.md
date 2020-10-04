@@ -1,7 +1,5 @@
  # Team Generator for Github 
  This is a simple terminal inquiry application I created to query a set of data in the terminal.
-      
-* [Author](#Author)
 
     # Installation
     In the terminal run 'node app.js'
