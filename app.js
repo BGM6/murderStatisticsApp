@@ -23,7 +23,7 @@ const runSearch = () => {
             name: 'search',
             type: 'list',
             message: 'Please choose an option on how you would like to search for murder statistics in the United States',
-            choices: ["By state", "By city"]
+            choices: ["By state", "By city", "Quit application"]
         }).then(answer => {
             if (answer.search === 'By state') {
                 searchState()
@@ -31,6 +31,10 @@ const runSearch = () => {
             if (answer.search === 'By city') {
                 searchCity()
 
+            }
+            // This will terminate the application
+            if (answer.search === 'Quit application') {
+                process.exit(1);
             }
         })
 };
@@ -56,6 +60,7 @@ const searchState = () => {
     });
 };
 
+// This function will query for the city
 const searchCity = () => {
     inquirer.prompt({
         name: 'userCityAnswer',
@@ -75,6 +80,3 @@ const searchCity = () => {
         });
     })
 }
-
-// Give user the option to continue or quit
-// write code to take care if state not in data
