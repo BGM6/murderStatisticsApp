@@ -8,7 +8,7 @@ const con = mysql.createConnection({
     database: 'murderdb'
 });
 
-con.connect(function (err) {
+con.connect((err) => {
     if (err) {
         console.log('Error connecting to database')
         return;
@@ -29,7 +29,7 @@ const runSearch = () => {
                 searchState()
             }
             if (answer.search === 'By city') {
-                searchCity2015()
+                searchCity()
 
             }
         })
@@ -37,15 +37,15 @@ const runSearch = () => {
 // This function will query for the state 
 const searchState = () => {
     inquirer.prompt({
-        name: 'userAnswer',
+        name: 'userStateAnswer',
         type: 'input',
-        message: 'Enter the state you would like to do a search on: '
+        message: 'Enter the state you would like search: '
     }).then(answer => {
         const query = 'SELECT * FROM murderdb.murder_per_city WHERE state = ?;';
-        con.query(query, answer.userAnswer, (err, state) => {
+        con.query(query, answer.userStateAnswer, (err, state) => {
             // validates that the user did not enter an empty string
-            if (answer.userAnswer.trim() === "") {
-                console.log('Please enter a valid input')
+            if (answer.userStateAnswer.trim() === "") {
+                console.log('Please enter a valid input');
                 searchState()
             } else {
                 if (err) throw err;
@@ -54,8 +54,27 @@ const searchState = () => {
             };
         });
     });
+};
 
+const searchCity = () => {
+    inquirer.prompt({
+        name: 'userCityAnswer',
+        type: 'input',
+        message: 'Enter the city you would like to search:'
+    }).then(answer2 => {
+        const query2 = 'SELECT * FROM murderdb.murder_per_city WHERE city = ?;';
+        con.query(query2, answer2.userCityAnswer, (err, city) => {
+            if (answer2.userCityAnswer.trim() === "") {
+                console.log('Please enter a valid input');
+                searchCity()
+            } else {
+                if (err) throw err;
+                console.table(city);
+                runSearch()
+            }
+        });
+    })
 }
+
 // Give user the option to continue or quit
-// finish city search portion
 // write code to take care if state not in data
