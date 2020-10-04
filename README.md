@@ -4,7 +4,7 @@
     # Installation
     In the terminal run 'node app.js'
     # Technology
-    javascript, inquirer, node.js, express, MySql
+    javascript, inquirer, node.js, MySql
     # Author 
     Bryan Guilas
 **bgm6**
